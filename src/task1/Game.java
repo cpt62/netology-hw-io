@@ -8,10 +8,12 @@ import java.io.IOException;
 
 
 public class Game {
-    private StringBuilder logger;
+    private final StringBuilder logger;
+    private final String rootDir;
 
-    public Game() {
-        logger = new StringBuilder();
+    public Game(String rootDir) {
+        this.logger = new StringBuilder();
+        this.rootDir = rootDir;
     }
 
     public void createStructure() {
@@ -44,6 +46,10 @@ public class Game {
             }
         }
         logWriter(logger);
+    }
+
+    public String getRootDir() {
+        return this.rootDir;
     }
 
     private void logWriter(StringBuilder stringBuilder) {
