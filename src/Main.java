@@ -17,7 +17,8 @@ public class Main {
         game.savesToZip(game.getRootDir());
 
         //task3
-
-
+        game.unZip();
+        GameProgress lastProgress = game.restoreLastProgress(game.getRootDir());
+        System.out.println(lastProgress);
     }
 }

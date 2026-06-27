@@ -1,10 +1,10 @@
 import java.io.*;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
-
-//import static GameStructure.TEMP;
-//import static GameStructure.TEMP_TXT;
 
 
 public class Game {
@@ -123,5 +123,65 @@ public class Game {
                 .filter(f -> f.getName().endsWith(".dat"))
                 .forEach(File::delete);
         System.out.println("Сохранения очищены после архивации");
+    }
+
+    public void unZip() {
+        File saveDir = new File(rootDir, GameStructure.SAVE.getPath());
+
+        File[] allFiles = saveDir.listFiles();
+
+        if (allFiles == null) {
+            System.out.println("Папка пуста!");
+            return;
+        }
+
+        List<File> zip = Arrays.stream(allFiles)
+                .filter(z -> z.getName().endsWith("zip"))
+                .toList();
+        if (!zip.isEmpty()) {
+            for (File f : zip) {
+                try (ZipInputStream zis = new ZipInputStream(new FileInputStream(f.getPath()))) {
+                    ZipEntry zipEntry;
+                    int i;
+                    byte[] buffer = new byte[4096];
+                    while ((zipEntry = zis.getNextEntry()) != null) {
+                        File saveFile = new File(rootDir, GameStructure.SAVE.getPath());
+                        try (FileOutputStream fos = new FileOutputStream(
+                                new File(saveFile.getPath(), zipEntry.getName()))) {
+                            while ((i = zis.read(buffer)) != -1) {
+                                fos.write(buffer, 0, i);
+                            }
+                            fos.flush();
+                            zis.closeEntry();
+                        }
+                    }
+                } catch (IOException ex) {
+                    System.out.println(ex.getMessage());
+                }
+                System.out.println("Файлы распакованы");
+            }
+        } else {
+            System.out.println("Файлы для распаковки не найдены");
+        }
+    }
+
+    public GameProgress restoreLastProgress(String dirRoot) {
+        File file = new File(dirRoot, GameStructure.SAVE.getPath());
+        GameProgress gameProgress = null;
+        Optional<File> optionalFile =
+                Arrays.stream(file.listFiles())
+                        .filter(f -> f.getName().endsWith("dat"))
+                        .max((f1, f2) -> f1.getPath().compareTo(f2.getPath()));
+        if (optionalFile.isPresent()) {
+            File fileSerializable = optionalFile.get();
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileSerializable))) {
+                gameProgress = (GameProgress) ois.readObject();
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return gameProgress;
     }
 }
