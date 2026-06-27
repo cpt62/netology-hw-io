@@ -1,6 +1,8 @@
 package task2;
 
-import java.io.Serializable;
+import task1.GameStructure;
+
+import java.io.*;
 
 public class GameProgress implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -25,5 +27,14 @@ public class GameProgress implements Serializable {
                 ", lvl=" + lvl +
                 ", distance=" + distance +
                 '}';
+    }
+
+    public void save() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(
+                new FileOutputStream(
+                        new File(GameStructure.SAVE.getPath(), "save.dat")))) {
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 }
