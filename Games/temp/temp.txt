@@ -1,0 +1,22 @@
+Каталог /home/cpt62/projects/netology-hw-io/Games/temp создан
+Файл /home/cpt62/projects/netology-hw-io/Games/temp/temp.txt создан
+Проверка существования директории /home/cpt62/projects/netology-hw-io/Games/src/main для целесообразности его создания
+Каталог /home/cpt62/projects/netology-hw-io/Games/src/main создан
+Проверка существования файла /home/cpt62/projects/netology-hw-io/Games/src/main/Main.java для целесообразности его создания
+Файл /home/cpt62/projects/netology-hw-io/Games/src/main/Main.java создан
+Проверка существования файла /home/cpt62/projects/netology-hw-io/Games/src/main/Utils.java для целесообразности его создания
+Файл /home/cpt62/projects/netology-hw-io/Games/src/main/Utils.java создан
+Проверка существования директории /home/cpt62/projects/netology-hw-io/Games/src/test для целесообразности его создания
+Каталог /home/cpt62/projects/netology-hw-io/Games/src/test создан
+Проверка существования директории /home/cpt62/projects/netology-hw-io/Games/res/drawables для целесообразности его создания
+Каталог /home/cpt62/projects/netology-hw-io/Games/res/drawables создан
+Проверка существования директории /home/cpt62/projects/netology-hw-io/Games/res/vectors для целесообразности его создания
+Каталог /home/cpt62/projects/netology-hw-io/Games/res/vectors создан
+Проверка существования директории /home/cpt62/projects/netology-hw-io/Games/res/icons для целесообразности его создания
+Каталог /home/cpt62/projects/netology-hw-io/Games/res/icons создан
+Проверка существования директории /home/cpt62/projects/netology-hw-io/Games/savegames для целесообразности его создания
+Каталог /home/cpt62/projects/netology-hw-io/Games/savegames создан
+Проверка существования директории /home/cpt62/projects/netology-hw-io/Games/temp для целесообразности его создания
+Каталог /home/cpt62/projects/netology-hw-io/Games/temp уже существует
+Проверка существования файла /home/cpt62/projects/netology-hw-io/Games/temp/temp.txt для целесообразности его создания
+Файл /home/cpt62/projects/netology-hw-io/Games/temp/temp.txt уже существует

@@ -1,63 +1,76 @@
 package task1;
 
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
+
+import static task1.GameStructure.TEMP;
+import static task1.GameStructure.TEMP_TXT;
 
 
 public class Game {
-    private final StringBuilder logger;
     private final String rootDir;
 
     public Game(String rootDir) {
-        this.logger = new StringBuilder();
         this.rootDir = rootDir;
     }
 
     public void createStructure() {
         GameStructure[] gameStructure = GameStructure.values();
         File file;
-        for (GameStructure gs : gameStructure) {
-            file = new File(gs.getPath());
-            if (gs.checkItem()) {
-                logger.append("Проверка существования директории " + gs.getPath() + " для целесообразности его создания\n");
-                if (!file.exists()) {
-                    if (file.mkdirs()) {
-                        logger.append("Каталог " + gs.getPath() + " создан\n");
-                    } else {
-                        logger.append("Каталог " + gs.getPath() + " был создан ранее\n");
-                    }
-                }
-            } else {
-                logger.append("Проверка существования файла " + gs.getPath() + " для целесообразности его создания\n");
-                if (!file.exists()) {
-                    try {
-                        if (file.createNewFile()) {
-                            logger.append("Файл " + gs.getPath() + " создан\n");
-                        } else {
-                            logger.append("Файл " + gs.getPath() + " был создан ранее\n");
+
+        try (BufferedWriter logger = createLogger()) {
+            for (GameStructure gs : gameStructure) {
+                file = new File(getFullPath(gs));
+                if (gs.checkItem()) {
+                    logger.write("Проверка существования директории " + getFullPath(gs) + " для целесообразности его создания\n");
+                    if (!file.exists()) {
+                        if (file.mkdirs()) {
+                            logger.write("Каталог " + getFullPath(gs) + " создан\n");
                         }
-                    } catch (IOException ex) {
-                        logger.append("!!! Файл не создан. Проверьте корректность вводимых данных");
+                    } else {
+                        logger.write("Каталог " + getFullPath(gs) + " уже существует\n");
+                    }
+                } else {
+                    logger.write("Проверка существования файла " + getFullPath(gs) + " для целесообразности его создания\n");
+                    if (!file.exists()) {
+                        try {
+                            if (file.createNewFile()) {
+                                logger.write("Файл " + getFullPath(gs) + " создан\n");
+                            }
+                        } catch (IOException ex) {
+                            logger.write("Вызвано исключение! Файл не создан. Проверьте корректность вводимых данных");
+                        }
+                    } else {
+                        logger.write("Файл " + getFullPath(gs) + " уже существует");
                     }
                 }
             }
-        }
-        logWriter(logger);
-    }
-
-    public String getRootDir() {
-        return this.rootDir;
-    }
-
-    private void logWriter(StringBuilder stringBuilder) {
-        byte[] bytes = stringBuilder.toString().getBytes();
-        try (BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream("Games/temp/temp.txt"))) {
-            bos.write(bytes);
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
+    }
+
+    public String getFullPath(GameStructure gameStructure) {
+        return new File(this.rootDir, gameStructure.getPath()).getPath();
+    }
+
+    public BufferedWriter createLogger() throws IOException {
+        File tempFolder = new File(rootDir, TEMP.getPath());
+        File tempFile = new File(rootDir, TEMP_TXT.getPath());
+        String folderLogMessage = "Каталог " + tempFolder.getPath() + " уже существует\n";
+        String fileLogMessage = "Файл " + tempFile.getPath() + " уже существует\n";
+        if (!tempFolder.exists()) {
+            if (tempFolder.mkdirs()) {
+                folderLogMessage = "Каталог " + tempFolder.getPath() + " создан\n";
+            }
+        }
+        if (!tempFile.exists())
+            if (tempFile.createNewFile()) {
+                fileLogMessage = "Файл " + tempFile.getPath() + " создан\n";
+            }
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(tempFile));
+        bufferedWriter.write(folderLogMessage);
+        bufferedWriter.write(fileLogMessage);
+        return bufferedWriter;
     }
 }

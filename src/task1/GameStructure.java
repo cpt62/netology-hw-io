@@ -1,25 +1,21 @@
 package task1;
 
 
-import java.io.File;
-
 public enum GameStructure {
 
     SRC_MAIN("src/main", true),
-    MAIN_JAVA("Games/src/main/Main.java", false),
-    UTILS_JAVA("Games/src/main/Utils.java", false),
-    SRC_TEST("Games/src/test", true),
+    MAIN_JAVA("src/main/Main.java", false),
+    UTILS_JAVA("src/main/Utils.java", false),
+    SRC_TEST("src/test", true),
 
-    DRAWABLES("Games/res/drawables", true),
-    VECTORS("Games/res/vectors", true),
-    ICONS("Games/res/icons", true),
+    DRAWABLES("res/drawables", true),
+    VECTORS("res/vectors", true),
+    ICONS("res/icons", true),
 
-    SAVE("Games/savegames", true),
+    SAVE("savegames", true),
 
-    TEMP("Games/temp", true),
-    TEMP_TXT("Games/temp/temp.txt", false);
-
-
+    TEMP("temp", true),
+    TEMP_TXT("temp/temp.txt", false);
 
     private final String path;
     private final boolean isDirectory;
@@ -35,12 +31,6 @@ public enum GameStructure {
 
     public boolean checkItem() {
         return isDirectory;
-    }
-
-    public void create(String rootDir) {
-        File file = new File(rootDir, path);
-        file.getParentFile()
-
     }
 
 
