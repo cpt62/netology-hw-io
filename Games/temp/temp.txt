@@ -1,21 +1,19 @@
-Каталог /home/cpt62/projects/netology-hw-io/Games/temp создан
-Файл /home/cpt62/projects/netology-hw-io/Games/temp/temp.txt создан
+Каталог /home/cpt62/projects/netology-hw-io/Games/temp уже существует
+Файл /home/cpt62/projects/netology-hw-io/Games/temp/temp.txt уже существует
 Проверка существования директории /home/cpt62/projects/netology-hw-io/Games/src/main для целесообразности его создания
-Каталог /home/cpt62/projects/netology-hw-io/Games/src/main создан
+Каталог /home/cpt62/projects/netology-hw-io/Games/src/main уже существует
 Проверка существования файла /home/cpt62/projects/netology-hw-io/Games/src/main/Main.java для целесообразности его создания
-Файл /home/cpt62/projects/netology-hw-io/Games/src/main/Main.java создан
-Проверка существования файла /home/cpt62/projects/netology-hw-io/Games/src/main/Utils.java для целесообразности его создания
-Файл /home/cpt62/projects/netology-hw-io/Games/src/main/Utils.java создан
-Проверка существования директории /home/cpt62/projects/netology-hw-io/Games/src/test для целесообразности его создания
-Каталог /home/cpt62/projects/netology-hw-io/Games/src/test создан
+Файл /home/cpt62/projects/netology-hw-io/Games/src/main/Main.java уже существуетПроверка существования файла /home/cpt62/projects/netology-hw-io/Games/src/main/Utils.java для целесообразности его создания
+Файл /home/cpt62/projects/netology-hw-io/Games/src/main/Utils.java уже существуетПроверка существования директории /home/cpt62/projects/netology-hw-io/Games/src/test для целесообразности его создания
+Каталог /home/cpt62/projects/netology-hw-io/Games/src/test уже существует
 Проверка существования директории /home/cpt62/projects/netology-hw-io/Games/res/drawables для целесообразности его создания
-Каталог /home/cpt62/projects/netology-hw-io/Games/res/drawables создан
+Каталог /home/cpt62/projects/netology-hw-io/Games/res/drawables уже существует
 Проверка существования директории /home/cpt62/projects/netology-hw-io/Games/res/vectors для целесообразности его создания
-Каталог /home/cpt62/projects/netology-hw-io/Games/res/vectors создан
+Каталог /home/cpt62/projects/netology-hw-io/Games/res/vectors уже существует
 Проверка существования директории /home/cpt62/projects/netology-hw-io/Games/res/icons для целесообразности его создания
-Каталог /home/cpt62/projects/netology-hw-io/Games/res/icons создан
+Каталог /home/cpt62/projects/netology-hw-io/Games/res/icons уже существует
 Проверка существования директории /home/cpt62/projects/netology-hw-io/Games/savegames для целесообразности его создания
-Каталог /home/cpt62/projects/netology-hw-io/Games/savegames создан
+Каталог /home/cpt62/projects/netology-hw-io/Games/savegames уже существует
 Проверка существования директории /home/cpt62/projects/netology-hw-io/Games/temp для целесообразности его создания
 Каталог /home/cpt62/projects/netology-hw-io/Games/temp уже существует
 Проверка существования файла /home/cpt62/projects/netology-hw-io/Games/temp/temp.txt для целесообразности его создания

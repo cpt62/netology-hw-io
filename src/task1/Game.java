@@ -50,6 +50,10 @@ public class Game {
         }
     }
 
+    public String getRootDir() {
+        return rootDir;
+    }
+
     public String getFullPath(GameStructure gameStructure) {
         return new File(this.rootDir, gameStructure.getPath()).getPath();
     }
