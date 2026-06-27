@@ -1,6 +1,3 @@
-package task1;
-
-
 public enum GameStructure {
 
     SRC_MAIN("src/main", true),

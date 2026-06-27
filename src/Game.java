@@ -1,10 +1,10 @@
-package task1;
-
-
 import java.io.*;
+import java.util.Arrays;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
-import static task1.GameStructure.TEMP;
-import static task1.GameStructure.TEMP_TXT;
+//import static GameStructure.TEMP;
+//import static GameStructure.TEMP_TXT;
 
 
 public class Game {
@@ -12,13 +12,16 @@ public class Game {
 
     public Game(String rootDir) {
         this.rootDir = rootDir;
+        System.out.println("Выбран корневой каталог: " + rootDir);
     }
 
     public void createStructure() {
+        System.out.println("Создание файловой структуры...");
         GameStructure[] gameStructure = GameStructure.values();
         File file;
 
         try (BufferedWriter logger = createLogger()) {
+            System.out.println("Данные о создании файловой структуры содержатся в файле: " + GameStructure.TEMP_TXT.getPath());
             for (GameStructure gs : gameStructure) {
                 file = new File(getFullPath(gs));
                 if (gs.checkItem()) {
@@ -59,8 +62,8 @@ public class Game {
     }
 
     public BufferedWriter createLogger() throws IOException {
-        File tempFolder = new File(rootDir, TEMP.getPath());
-        File tempFile = new File(rootDir, TEMP_TXT.getPath());
+        File tempFolder = new File(rootDir, GameStructure.TEMP.getPath());
+        File tempFile = new File(rootDir, GameStructure.TEMP_TXT.getPath());
         String folderLogMessage = "Каталог " + tempFolder.getPath() + " уже существует\n";
         String fileLogMessage = "Файл " + tempFile.getPath() + " уже существует\n";
         if (!tempFolder.exists()) {
@@ -76,5 +79,49 @@ public class Game {
         bufferedWriter.write(folderLogMessage);
         bufferedWriter.write(fileLogMessage);
         return bufferedWriter;
+    }
+
+    public void savesToZip(String dirRoot) {
+        File saveDir = new File(dirRoot, GameStructure.SAVE.getPath());
+        File[] files = saveDir.listFiles();
+        File fileZip = new File(saveDir, "savesGame.zip");
+
+        if (files == null || files.length == 0) return;
+        System.out.println("Архивация файлов *.dat ...");
+        try (ZipOutputStream zip = new ZipOutputStream(new FileOutputStream(fileZip))) {
+            ZipEntry zipEntry;
+            byte[] buffer = new byte[4096];
+            for (File file : files) {
+                if (file.isDirectory()) continue;
+                zipEntry = new ZipEntry(file.getName());
+                zip.putNextEntry(zipEntry);
+                try (FileInputStream fis = new FileInputStream(file)) {
+                    int length;
+                    while ((length = fis.read(buffer)) != -1) {
+                        zip.write(buffer, 0, length);
+                    }
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+                zip.closeEntry();
+            }
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+        System.out.println("Архивация завершена");
+        clearDat(dirRoot);
+    }
+
+    private void clearDat(String dirRoot) {
+        File file = new File(dirRoot, GameStructure.SAVE.getPath());
+        File[] files = file.listFiles();
+        if (files == null || files.length == 0) {
+            System.out.println("Сохранения отсутствуют");
+            return;
+        }
+        Arrays.stream(files)
+                .filter(f -> f.getName().endsWith(".dat"))
+                .forEach(File::delete);
+        System.out.println("Сохранения очищены после архивации");
     }
 }
